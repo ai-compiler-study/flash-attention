@@ -144,7 +144,12 @@ class TestOps(unittest.TestCase):
                 )
             else:
                 fn = F.scaled_dot_product_attention
+            
+            q = q.permute(0, 2, 1, 3) # B, H, S, D
+            k = k.permute(0, 2, 1, 3) # B, H, S, D
+            v = v.permute(0, 2, 1, 3) # B, H, S, D
             o_ref = fn(q, k, v, is_causal=True, scale=softmax_scale)
+            o = o.permute(0, 2, 1, 3) # B, S, H, D
 
         print(f"Pytorch max diff: {(o - o_ref).abs().max().item()}")
         print(f"Pytorch mean diff: {(o - o_ref).abs().mean().item()}")
