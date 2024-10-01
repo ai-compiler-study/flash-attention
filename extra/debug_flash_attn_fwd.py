@@ -71,7 +71,12 @@ with sdpa_kernel(SDPBackend.FLASH_ATTENTION):
         )
     else:
         fn = F.scaled_dot_product_attention
+
+    q = q.permute(0, 2, 1, 3) # B, H, S, D
+    k = k.permute(0, 2, 1, 3) # B, H, S, D
+    v = v.permute(0, 2, 1, 3) # B, H, S, D
     o = fn(q, k, v, is_causal=True, scale=softmax_scale)
+    o = o.permute(0, 2, 1, 3) # B, S, H, D
 
 # Slicing indices
 batch_idx = 0
