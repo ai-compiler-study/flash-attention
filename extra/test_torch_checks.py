@@ -98,7 +98,7 @@ class TestOps(unittest.TestCase):
     ):
         device = "cuda"
         batch_size = 1
-        print(dtype)
+        #print(dtype)
         # set seed
         torch.random.manual_seed(0)
 
@@ -151,9 +151,9 @@ class TestOps(unittest.TestCase):
             o_ref = fn(q, k, v, is_causal=True, scale=softmax_scale)
             o = o.permute(0, 2, 1, 3) # B, S, H, D
 
-        print(f"Pytorch max diff: {(o - o_ref).abs().max().item()}")
-        print(f"Pytorch mean diff: {(o - o_ref).abs().mean().item()}")
-        #self.assertTrue(torch.allclose(o_ref, o, atol=ABS_TOL, rtol=REL_TOL))
+        #print(f"Pytorch max diff: {(o - o_ref).abs().max().item()}")
+        #print(f"Pytorch mean diff: {(o - o_ref).abs().mean().item()}")
+        self.assertTrue(torch.allclose(o_ref, o, atol=ABS_TOL, rtol=REL_TOL))
 
 
 if __name__ == "__main__":
