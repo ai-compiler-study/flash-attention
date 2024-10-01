@@ -87,7 +87,7 @@ head_dim_indices = slice(0, 8)  # First 8 dimensions of the head
 # Slice the tensors
 ref_subset = ref_o[batch_idx, seq_indices, head_indices, head_dim_indices]
 o_subset = o[batch_idx, seq_indices, head_indices, head_dim_indices]
-# code.interact(local=locals())
+code.interact(local=locals())
 print(o_subset)
 print(ref_subset)
 print(torch.allclose(ref_o, o, atol=2e-06))
